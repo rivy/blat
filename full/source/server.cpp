@@ -218,7 +218,7 @@ int get_server_response( COMMON_DATA & CommonData, Buf * responseStr, int * vali
             if ( _istdigit(in_data[0]) &&
                  _istdigit(in_data[1]) &&
                  _istdigit(in_data[2]) &&
-                 (in_data[3] == __T(' ')) || (in_data[3] == __T('-')) ) {
+                 ((in_data[3] == __T(' ')) || (in_data[3] == __T('-'))) ) {
                 received.Add( in_data );
                 if ( CommonData.debug ) printMsg( CommonData, __T("<<<getline<<< %s\n"), in_data );
             } else {

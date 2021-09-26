@@ -1,0 +1,30 @@
+# NOTE: GLOBSTAR syntax [see `git help gitignore`]
+# ref: [.gitignore] http://git-scm.com/docs/gitignore @@ http://archive.is/Rk6rO
+# ref: for reference, see https://www.gitignore.io/api/visualstudio,visualstudiocode,c++
+
+## Build files
+
+/[._#$]build/
+
+## VSCode/VisualStudioCode
+
+/.vscode/*
+/!.vscode/settings.json
+/!.vscode/tasks.json
+/!.vscode/launch.json
+/!.vscode/extensions.json
+/*.code-workspace
+
+## * VSCode local history
+
+/.history
+
+##  Visual Studio
+
+## * VS2015/2017 cache/options directory
+
+.vs/
+
+## * VS project user-specific property files
+
+*.vcxproj.user

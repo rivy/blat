@@ -53,7 +53,7 @@ extern "C" {
 #endif
 
 #if defined(_MSDOS) || defined(_WIN32) || defined(_WIN64)
-#include "win-mac.h"
+#include "../win-mac.h"
 #endif
 
 #ifndef KRB5_CALLCONV

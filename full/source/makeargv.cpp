@@ -220,7 +220,7 @@ size_t make_argv( _TCHAR commentChar,
                             case __T('6'):
                             case __T('7'):
                             {
-                                int octalValue = 0;
+                                unsigned octalValue = 0;
 
                                 for ( ; ; ) {
                                     if ( octalValue > (((256*sizeof(_TCHAR))-1)/8) )

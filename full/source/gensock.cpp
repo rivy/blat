@@ -338,10 +338,13 @@ int
     }
 #endif
 
-    for ( dummyVal = 0; _Tservice[dummyVal] && (dummyVal < (sizeof(service)-1)); dummyVal++ ) {
-        service[dummyVal] = (char)(_Tservice[dummyVal] & 0xFF);
+    {
+        unsigned i;
+        for ( i = 0; _Tservice[i] && (i < (sizeof(service)-1)); i++ ) {
+            service[i] = (char)(_Tservice[i] & 0xFF);
+        }
+        service[i] = '\0';
     }
-    service[dummyVal] = '\0';
 
     dummyVal = 0;
     // If they've specified a number, just use it.

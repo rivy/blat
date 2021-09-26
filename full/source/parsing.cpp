@@ -32,7 +32,7 @@ void parseCommaDelimitString ( COMMON_DATA & CommonData, LPTSTR source, Buf & pa
 
     len = _tcslen( source );
     if ( len ) {
-        int x;
+        unsigned x;
 
         srcptr = source;
         for ( ; ; ) {

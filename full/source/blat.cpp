@@ -435,8 +435,11 @@ int _tmain( int argc,             /* Number of strings in array argv          */
 #endif
 
 #if defined(_UNICODE) || defined(UNICODE)
+    // FixME/ToDO [2019-09-23; rivy] ~ GetVersion() is deprecated ; this likely needs to be refactored
+    #pragma warning(disable : 4996) // DISABLE: deprecated warning
     dwVersion = GetVersion();
-    if ( dwVersion & (0x80ul << ((sizeof(DWORD)-1) * 8)) ) {
+    #pragma warning(default : 4996) // RESET: deprecated warning
+    if (dwVersion & (0x80ul << ((sizeof(DWORD) - 1) * 8))) {
         //fprintf( stderr, "dwVersion = %08lX\n", dwVersion );
         fprintf( stderr, "This Unicode version of Blat cannot run in Windows earlier than Windows 2000.\n" \
                          "Please download and use Blat from the Win98 download folder on Yahoo! groups\n" \
@@ -1007,10 +1010,18 @@ int _tmain( int argc,             /* Number of strings in array argv          */
         useCreateFile = FALSE;
         osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
 
-        if ( !GetVersionEx ((OSVERSIONINFO *) &osvi) ) {
-            osvi.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
-            GetVersionEx ( (OSVERSIONINFO *) &osvi);
+        // FixME/ToDO [2019-09-23; rivy] ~ GetVersionEx() is deprecated ; this likely needs to be refactored
+        // * maybe use LoadLibrary('kernel32') with GetProcAddress(...,'CreateFile') ; see *gssfuncs.cpp*:113-206 for an example
+        // * ref: <https://stackoverflow.com/questions/22303824/warning-c4996-getversionexw-was-declared-deprecated/27323983>
+        // * ref: <https://walbourn.github.io/whats-in-a-version-number> @@ <https://archive.is/2gLDN>
+        // * ref: <https://docs.microsoft.com/en-us/windows/win32/sysinfo/version-helper-apis>
+        // * ref: <https://www.codeproject.com/Articles/678606/Part1-Overcoming-Windows-8-1s-deprecation-of-GetVe> @@ <https://archive.is/tPaNO> and 7y ago @ <https://archive.is/BDsbp>
+        #pragma warning(disable : 4996) // DISABLE: deprecated warning
+        if (!GetVersionEx((OSVERSIONINFO *)&osvi)) {
+            osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+            GetVersionEx((OSVERSIONINFO *)&osvi);
         }
+        #pragma warning(default : 4996) // RESET: deprecated warning
 
         if ( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT ) {
             if ( osvi.dwMajorVersion >= 5 )

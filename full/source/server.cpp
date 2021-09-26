@@ -856,14 +856,14 @@ int transform_and_send_edit_data( COMMON_DATA & CommonData, LPTSTR editptr )
             // call external progress function
             if ( !retval ) {
                 if ( pProcessDataProcW || pProcessDataProc ) {
-                    currPos = min( 100, MulDiv( 100, (int)(index - initialIndex), msgLength ) );
+                    currPos = _min( 100, MulDiv( 100, (int)(index - initialIndex), msgLength ) );
                     if (currPos > lastPos)  {
                         int size = MulDiv( (int)(index - lastIndex), attachmentSize, msgLength );
                         if ( pProcessDataProcW ) {
-                            retval = (pProcessDataProcW( NULL, max( 0, size ) ) == 0) ? 20 : 0;
+                            retval = (pProcessDataProcW( NULL, _max( 0, size ) ) == 0) ? 20 : 0;
                         } else
                         if ( pProcessDataProc ) {
-                            retval = (pProcessDataProc( NULL, max( 0, size ) ) == 0) ? 20 : 0;
+                            retval = (pProcessDataProc( NULL, _max( 0, size ) ) == 0) ? 20 : 0;
                         }
                         lastIndex = index;
                         lastPos = currPos;

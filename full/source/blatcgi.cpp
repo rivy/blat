@@ -145,7 +145,7 @@ void ReadPostData(Buf &buf)
     buf.Clear();
 
     do {
-        dwThisStep = (DWORD) min(dwTotalBytes-buf.Length(),dwStep);
+        dwThisStep = (DWORD) _min(dwTotalBytes-buf.Length(),dwStep);
         dwReadThis = dwThisStep;
         if ( dwThisStep > 0 ) {
             dwReadThis = 0;

@@ -1312,7 +1312,7 @@ LPTSTR
 int
      gensock_gethostname (LPTSTR pName, int namelen)
 {
-    char     name[max(MAX_HOSTNAME_LENGTH+1,MAX_COMPUTERNAME_LENGTH+1)];
+    char     name[_max(MAX_HOSTNAME_LENGTH+1,MAX_COMPUTERNAME_LENGTH+1)];
     int      retval;
     DWORD    nSize;
     Buf      tHost;

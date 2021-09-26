@@ -8,10 +8,10 @@ gssfuncs.cpp
     #define WIN32
 #endif
 
-#include <tchar.h>
-#include <stdio.h>
 #include <ctype.h>
+#include <stdio.h>
 #include <string.h>
+#include <tchar.h>
 
 /*
 #define ntohl(netAddr) \
@@ -22,6 +22,12 @@ gssfuncs.cpp
 #define htonl(netAddr) ntohl(netAddr)
  */
 
+#if defined(_MSC_VER) && (_MSC_VER < 1300)
+// For VC6, disable warnings from various standard Windows headers
+// NOTE: #pragma warning(push) ... #pragma warning(pop) is broken/unusable for MSVC 6 (re-enables multiple other warnings)
+#pragma warning(disable : 4068) // DISABLE: unknown pragma warning
+#pragma warning(disable : 4035) // DISABLE: no return value warning
+#endif
 extern "C" {
 #if (WINVER > 0x0500)
     #include <winsock2.h>
@@ -29,10 +35,15 @@ extern "C" {
     #include <winsock.h>
 #endif
 }
-#include "blat.h"
-#include "common_data.h"
-#include "blatext.hpp"
+#if defined(_MSC_VER) && (_MSC_VER < 1300)
+#pragma warning(default : 4068) // RESET: unknown pragma warning
+#pragma warning(default : 4035) // RESET: no return value warning
+#endif
+
 #include "base64.hpp"
+#include "blat.h"
+#include "blatext.hpp"
+#include "common_data.h"
 
 #if SUPPORT_GSSAPI  //Added 2003-11-20 Joseph Calzaretta
 

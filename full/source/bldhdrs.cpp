@@ -4,15 +4,30 @@
 
 #include "declarations.h"
 
-#include <tchar.h>
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#if defined(_MSC_VER) && (_MSC_VER < 1300)
+// For VC6, disable warnings from various standard Windows headers
+// NOTE: #pragma warning(push) ... #pragma warning(pop) is broken/unusable for MSVC 6 (re-enables multiple other warnings)
+#pragma warning(disable : 4068) // DISABLE: unknown pragma warning
+#pragma warning(disable : 4035) // DISABLE: no return value warning
+#endif
 #include <windows.h>
-#include <stdio.h>
-#include <string.h>
+#if defined(_MSC_VER) && (_MSC_VER < 1300)
+#pragma warning(default : 4068) // RESET: unknown pragma warning
+#pragma warning(default : 4035) // RESET: no return value warning
+#endif
+
 //#ifdef __WATCOMC__
 //#include <mapi.h>
 //#else
 //#include <mapiwin.h>
 //#endif
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <tchar.h>
 
 #ifdef _MSC_VER
 #if (_MSC_VER >= 1300)
@@ -22,17 +37,17 @@
 #include <x86intrin.h>
 #endif
 
-#include "blat.h"
-#include "common_data.h"
-#include "blatext.hpp"
-#include "macros.h"
-#include "gensock.h"
-#include "bldhdrs.hpp"
-#include "filetype.hpp"
-#include "mime.hpp"
 #include "base64.hpp"
-#include "unicode.hpp"
+#include "blat.h"
+#include "blatext.hpp"
+#include "bldhdrs.hpp"
+#include "common_data.h"
+#include "filetype.hpp"
+#include "gensock.h"
+#include "macros.h"
+#include "mime.hpp"
 #include "sendsmtp.hpp"
+#include "unicode.hpp"
 
 static _TCHAR base64_marker[] = __T("?B?"); // RFC 2047 section 4.1. The "B" encoding
 static _TCHAR mime_marker[]   = __T("?Q?"); // RFC 2047 section 4.2. The "Q" encoding

@@ -4,24 +4,38 @@
 
 #include "declarations.h"
 
-#include <tchar.h>
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#if defined(_MSC_VER) && (_MSC_VER < 1300)
+// For VC6, disable warnings from various standard Windows headers
+// NOTE: #pragma warning(push) ... #pragma warning(pop) is broken/unusable for MSVC 6 (re-enables multiple other warnings)
+#pragma warning(disable : 4068) // DISABLE: unknown pragma warning
+#pragma warning(disable : 4035) // DISABLE: no return value warning
+#endif
 #include <windows.h>
+#if defined(_MSC_VER) && (_MSC_VER < 1300)
+#pragma warning(default : 4068) // RESET: unknown pragma warning
+#pragma warning(default : 4035) // RESET: no return value warning
+#endif
+
 #include <stdio.h>
 #include <string.h>
+#include <tchar.h>
 
-#include "blat.h"
-#include "winfile.h"
-#include "common_data.h"
-#include "blatext.hpp"
-#include "macros.h"
-#include "msgbody.hpp"
-#include "bldhdrs.hpp"
-#include "filetype.hpp"
-#include "mime.hpp"
 #include "base64.hpp"
+#include "blat.h"
+#include "blatext.hpp"
+#include "bldhdrs.hpp"
+#include "common_data.h"
+#include "filetype.hpp"
+#include "macros.h"
+#include "mime.hpp"
+#include "msgbody.hpp"
+#include "sendsmtp.hpp"
 #include "unicode.hpp"
 #include "uuencode.hpp"
-#include "sendsmtp.hpp"
+#include "winfile.h"
 
 #ifndef _MAX_PATH
     #define _MAX_PATH 260

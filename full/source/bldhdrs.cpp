@@ -14,6 +14,14 @@
 //#include <mapiwin.h>
 //#endif
 
+#ifdef _MSC_VER
+#if (_MSC_VER >= 1300)
+#include <intrin.h>
+#endif
+#else
+#include <x86intrin.h>
+#endif
+
 #include "blat.h"
 #include "common_data.h"
 #include "blatext.hpp"
@@ -45,6 +53,17 @@ static LPTSTR months[]  = { __T("Jan"),
                             __T("Nov"),
                             __T("Dec") };
 
+// ref: <https://stackoverflow.com/questions/9887839/how-to-count-clock-cycles-with-rdtsc-in-gcc-x86> @@ <https://archive.is/axUUU>
+// optional wrapper if you don't want to just use __rdtsc() everywhere
+inline DWORD64 readTSC() {
+#if (defined(_MSC_VER) && (_MSC_VER >= 1300))
+    // _mm_lfence();  // optionally wait for earlier insns to retire before reading the clock
+    return __rdtsc();
+    // _mm_lfence();  // optionally block later instructions until rdtsc retires
+#else
+    return rand();
+#endif
+}
 
 void incrementBoundary( _TCHAR boundary[] )
 {
@@ -1071,17 +1090,8 @@ void build_headers( COMMON_DATA & CommonData, BLDHDRS & bldHdrs )
     }
 #endif
     GetSystemTimeAsFileTime( &today );
+    cpuTime = (DWORD)readTSC();
 
-#if defined(_WIN64)
-    cpuTime = (DWORD)rand();
-#else
-    __asm {
-        pushad
-        rdtsc
-        mov     cpuTime, eax
-        popad
-    }
-#endif
 #if BLAT_LITE
 #else
     if ( CommonData.messageId.Length() ) {

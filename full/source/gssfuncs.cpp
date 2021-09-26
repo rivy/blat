@@ -95,7 +95,7 @@ LPTSTR GssSession::GssException::message()
 }
 
 //  Create a GssSession object (see gssfuncs.h)
-GssSession::GssSession() : state(Nothing), protection_level(GSSAUTH_P_NONE), max_prewrapped(5192)
+GssSession::GssSession() : protection_level(GSSAUTH_P_NONE), max_prewrapped(5192), state(Nothing)
 {
 #if defined(_WIN64)
     hinstLib = LoadLibrary(__T("gssapi64"));

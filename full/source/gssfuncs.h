@@ -114,7 +114,7 @@ public:
         void add(LPTSTR toadd) {if (!toadd) return; _tcsncat(errmsg,toadd,1023-_tcslen(errmsg)); errmsg[1023]=0;}
     public:
         GssException(LPTSTR szMsg = __T("An exception has occurred in GssSession.")) :
-          major_status(0), minor_status(0), statusmsginit(FALSE)
+          statusmsginit(FALSE), major_status(0), minor_status(0)
           { clear(); add(szMsg);}
 
         LPTSTR error_message() {return (LPTSTR)errmsg;} // Error message

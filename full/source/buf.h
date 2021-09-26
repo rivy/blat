@@ -96,20 +96,25 @@ public:
         bufsize = 0;
     }
     Buf(LPCTSTR p) {
+        buffer = 0;
         SetString(p);
     }
     Buf(LPCTSTR p, size_t len) {
+        buffer = 0;
         SetStringLen(p, len);
     }
 #if defined(_UNICODE) || defined(UNICODE)
     Buf(const char * p) {
+        buffer = 0;
         SetString(p);
     }
     Buf(const char * p, size_t len) {
+        buffer = 0;
         SetStringLen(p, len);
     }
 #endif
     Buf(size_t alloclen) {
+        buffer = 0;
         Free();
         bufsize = alloclen;
         buffer = new _TCHAR[bufsize];

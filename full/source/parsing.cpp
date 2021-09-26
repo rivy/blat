@@ -129,7 +129,7 @@ void parseCommaDelimitString ( COMMON_DATA & CommonData, LPTSTR source, Buf & pa
         // if there's only one token left, then len will = startLen,
         // and we'll iterate once only
         int foundQuote;
-        int lengthToCopy;
+        size_t lengthToCopy;
 
         while ( *srcptr && (_tcschr (__T(" ,\n\t\r"), *srcptr)) ) // eat leading white space
             srcptr++;

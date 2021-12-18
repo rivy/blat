@@ -1,4 +1,4 @@
-# Makefile (C/C++; OOS-build support; gmake-form/style; v2021.09.22)
+# Makefile (C/C++; OOS-build support; gmake-form/style; v2021.12.26)
 # Cross-platform (bash/sh + CMD/PowerShell)
 # `bcc32`, `cl`, `clang`, `embcc32`, and `gcc` (defaults to `CC=clang`)
 # GNU make (gmake) compatible; ref: <https://www.gnu.org/software/make/manual>
@@ -16,14 +16,17 @@
 
 # `make [ARCH=32|64] [CC=..] [CC_DEFINES=<truthy>] [COLOR=<truthy>] [DEBUG=<truthy>] [STATIC=<truthy>] [TARGET=..] [VERBOSE=<truthy>] [MAKEFLAGS_debug=<truthy>] [MAKE_TARGET...]`
 
-NAME := blat $()## $()/empty/null => autoset to name of containing folder
+NAME := blat ## $()/empty/null => autoset to name of containing folder
 
 ####
+
+# spell-checker:ignore (project)
+# spell-checker:ignore (FixME) stringop
 
 # spell-checker:ignore (targets) realclean vclean veryclean
 # spell-checker:ignore (make) BASEPATH CURDIR MAKECMDGOALS MAKEFLAGS SHELLSTATUS TERMERR TERMOUT abspath addprefix addsuffix endef eval findstring firstword gmake ifeq ifneq lastword notdir patsubst prepend undefine wordlist
 #
-# spell-checker:ignore (CC) DDEBUG DNDEBUG NDEBUG Ofast Werror Wextra Xclang Xlinker bcc dumpmachine embcc flto flto-visibility-public-std fpie nodefaultlib nologo nothrow psdk
+# spell-checker:ignore (CC) DDEBUG DNDEBUG NDEBUG Ofast Werror Wextra Xclang Xlinker bcc dumpmachine embcc flto flto-visibility-public-std fpie msdosdjgpp nodefaultlib nologo nothrow psdk
 # spell-checker:ignore (abbrev/acronyms) LCID LCIDs LLVM MSVC MinGW POSIX VCvars
 # spell-checker:ignore (jargon) autoset deps depfile depfiles delims executables maint multilib
 # spell-checker:ignore (libraries) advapi libcmt libgcc libstdc lmsvcrt lstdc stdext wsock
@@ -31,22 +34,25 @@ NAME := blat $()## $()/empty/null => autoset to name of containing folder
 # spell-checker:ignore (shell/nix) mkdir printf rmdir uname
 # spell-checker:ignore (shell/win) COMSPEC SystemDrive SystemRoot findstr findstring mkdir windir
 # spell-checker:ignore (utils) goawk ilink windres
-# spell-checker:ignore (vars) CFLAGS CPPFLAGS CXXFLAGS DEFINETYPE EXEEXT LDFLAGS LIBPATH LIBs MAKEDIR OBJ_deps OBJs OSID PAREN RCFLAGS devnull falsey fileset filesets globset globsets punct truthy
+# spell-checker:ignore (vars) CFLAGS CLICOLOR CPPFLAGS CXXFLAGS DEFINETYPE EXEEXT LDFLAGS LIBPATH LIBs MAKEDIR OBJ_deps OBJs OSID PAREN RCFLAGS REZ REZs devnull falsey fileset filesets globset globsets punct truthy
 
 ####
 
 SRC_PATH := full/source ## path to source relative to makefile (defaults to 'src'); used to create ${SRC_DIR} which is then used as the source base directory path
 
 DEPS = $()## manually-configured common/shared dependencies; note: use delayed expansion (`=`, not `:=`) if referencing a later defined variable (eg, `{SRC_DIR}/defines.h`)
-LIBS := advapi32 wsock32 ## list of any additional required libraries (space-separated); alternatively, use `#pragma comment(lib, "LIBRARY_NAME")
+LIBS := advapi32 wsock32 ## list of any additional required libraries (space-separated); alternatively, use `#pragma comment(lib, "LIBRARY_NAME")`
 RES := $()## list of any additional required resources (space-separated)
+
+BUILD_PATH := $()## path to build storage relative to makefile (defaults to '$build'); used to create ${BUILD_DIR} which is then used as the base path for build outputs
 
 ####
 
 # `make ...` command line flags/options
 ARCH := $()## default ARCH for compilation ([$(),...]); $()/empty/null => use CC default ARCH
 CC_DEFINES := false## provide compiler info (as `CC_...` defines) to compiling targets ('truthy'-type)
-COLOR := $(if $(or ${MAKE_TERMOUT},${MAKE_TERMERR}),true,false)## enable colorized output ('truthy'-type)
+# * COLOR ~ defaults to "auto" mode ("on/true" if STDOUT is tty, "off/false" if STDOUT is redirected); respects CLICOLOR/CLICOLOR_FORCE and NO_COLOR (but overridden by `COLOR=..` on command line); refs: <https://bixense.com/clicolors> , <https://no-color.org>
+COLOR := $(or $(if ${CLICOLOR_FORCE},$(if $(filter 0,${CLICOLOR_FORCE}),$(),true),$()),$(if ${MAKE_TERMOUT},$(if $(or $(filter 0,${CLICOLOR}),${NO_COLOR}),$(),true),$()))## enable colorized output ('truthy'-type)
 DEBUG := false## enable compiler debug flags/options ('truthy'-type)
 STATIC := true## compile to statically linked executable ('truthy'-type)
 VERBOSE := false## verbose `make` output ('truthy'-type)
@@ -128,8 +134,8 @@ STRIP_CC_gcc := strip
 ## note: CFLAGS == C flags; CPPFLAGS == C PreProcessor flags; CXXFLAGS := C++ flags; ref: <https://stackoverflow.com/questions/495598/difference-between-cppflags-and-cxxflags-in-gnu-make>
 CFLAGS = -I$(call %shell_quote,${BASEPATH}.) -pedantic-errors -Werror -Wall -MMD## requires delayed expansion (b/c uses `%shell_quote` which is defined later)
 # FixMe [2021-09-23; rivy]: fix all the warnings included in CFLAGS_clang and CFLAGS_gcc
-CFLAGS_clang := -Wno-deprecated-declarations -Wno-format -Wno-ignored-attributes -Wno-keyword-macro -Wno-language-extension-token -Wno-misleading-indentation -Wno-parentheses-equality -Wno-self-assign -Wno-switch -Wno-tautological-constant-out-of-range-compare -Wno-writable-strings
-CFLAGS_gcc := -Wno-unknown-pragmas -Wno-stringop-overflow -Wno-deprecated-declarations -Wno-ignored-attributes -Wno-write-strings -Wno-format -Wno-misleading-indentation -Wno-switch -Wno-unused-but-set-variable
+CFLAGS_clang := -Wno-deprecated-declarations -Wno-format -Wno-ignored-attributes -Wno-keyword-macro -Wno-language-extension-token -Wno-misleading-indentation -Wno-parentheses-equality -Wno-self-assign -Wno-switch -Wno-tautological-constant-out-of-range-compare -Wno-unused-but-set-variable -Wno-writable-strings
+CFLAGS_gcc := -Wno-deprecated-declarations -Wno-format -Wno-ignored-attributes -Wno-misleading-indentation -Wno-stringop-overflow -Wno-switch -Wno-unknown-pragmas -Wno-unused-but-set-variable -Wno-write-strings
 CFLAGS_COMPILE_ONLY := -c
 CFLAGS_ARCH_32 := -m32
 CFLAGS_ARCH_64 := -m64
@@ -231,8 +237,10 @@ STRIP := $()
 ## /incremental:no :: disable incremental linking (avoids size increase, useless for cold builds, with minimal time cost)
 ## /machine:I386 :: specify the target machine platform
 ## /subsystem:console :: generate "Win32 character-mode" console application
+## ref: <https://devblogs.microsoft.com/cppblog/windows-xp-targeting-with-c-in-visual-studio-2012> @@ <https://archive.is/pWbPR>
 ## /subsystem:console,4.00 :: generate "Win32 character-mode" console application; 4.00 => minimum supported system is Win9x/NT; supported only by MSVC 9 (`cl` version "15xx") or less
-## /subsystem:console,5.01 :: generate "Win32 character-mode" console application; 5.01 => minimum supported system is XP; supported by MSVC 10 (`cl` version "16xx") or later
+## /subsystem:console,5.01 :: generate "Win32 character-mode" console application; 5.01 => minimum supported system is XP; supported by MSVC 10 (`cl` version "16xx") or later when compiling for 32-bit
+## /subsystem:console,5.02 :: generate "Win32 character-mode" console application; 5.02 => minimum supported system is XP; supported by MSVC 10 (`cl` version "16xx") or later when compiling for 64-bit
 CFLAGS = /nologo /W3 /WX /EHsc /I $(call %shell_quote,${BASEPATH}.) /D "WIN32" /D "_CONSOLE" /D "_CRT_SECURE_NO_WARNINGS"## requires delayed expansion (b/c uses `%shell_quote` which is defined later)
 CFLAGS_COMPILE_ONLY := -c
 # CFLAGS_DEBUG_true = /D "DEBUG" /D "_DEBUG" /Od /Zi /Fd"${OUT_DIR_obj}/"
@@ -249,7 +257,8 @@ LDFLAGS := /nologo /incremental:no
 LDFLAGS_ARCH_32 := /machine:I386
 # CL version specific flags
 LDFLAGS_CL1600+_false := /subsystem:console,4.00
-LDFLAGS_CL1600+_true := /subsystem:console,5.01
+LDFLAGS_CL1600+_true_ARCH_32 := /subsystem:console,5.01
+LDFLAGS_CL1600+_true_ARCH_64 := /subsystem:console,5.02
 # VC6-specific flags
 ## /ignore:4254 :: suppress "merging sections with different attributes" warning (LNK4254)
 LDFLAGS_VC6_true := /ignore:4254
@@ -278,7 +287,7 @@ ifeq (,$(filter-out bcc32 embcc32,${CC_ID}))
 CXX := ${CC}
 LD := ilink32
 RC := rc
-# note: `ILINK32 [@<respfile>][<options>] <startup> <myobjs>, [<exe>], [<mapfile>], [<libraries>], [<deffile>], [<resfile>]`
+# note: `ILINK32 [@<respFile>][<options>] <startup> <myObjs>, [<exe>], [<mapFile>], [<libraries>], [<defFile>], [<resFile>]`
 %link = ${LD} -I$(call %shell_quote,$(call %as_win_path,${OUT_DIR_obj})) ${LDFLAGS} $(call %as_win_path,${2}), $(call %as_win_path,${1}),,$(call %as_win_path,${4}),,$(call %as_win_path,${3})## $(call %link,EXE,OBJs,REZs,LIBs); function => requires delayed expansion
 %rc = ${RC} ${RCFLAGS} ${RC_o}${1} ${2} >${devnull}## $(call %link,REZ,RES); function => requires delayed expansion
 STRIP := $()
@@ -344,7 +353,7 @@ OUT_obj_filesets := ${OUT_obj_filesets} $() *.obj *.ilc *.ild *.ilf *.ils *.tds#
 
 #### End of system configuration section. ####
 
-falsey := false 0 f n no off
+falsey := false 0 f n never no none off
 false := $()
 true := true
 truthy := ${true}
@@ -445,6 +454,15 @@ endif
 
 ####
 
+override COLOR := $(call %as_truthy,$(or $(filter-out auto,$(call %lc,${COLOR})),${MAKE_TERMOUT}))
+override DEBUG := $(call %as_truthy,${DEBUG})
+override STATIC := $(call %as_truthy,${STATIC})
+override VERBOSE := $(call %as_truthy,${VERBOSE})
+
+override MAKEFLAGS_debug := $(call %as_truthy,$(or $(call %is_truthy,${MAKEFLAGS_debug}),$(call %is_truthy,${MAKEFILE_debug})))
+
+####
+
 color_black := $(if $(call %is_truthy,${COLOR}),${ESC}[0;30m,)
 color_blue := $(if $(call %is_truthy,${COLOR}),${ESC}[0;34m,)
 color_cyan := $(if $(call %is_truthy,${COLOR}),${ESC}[0;36m,)
@@ -475,13 +493,6 @@ color_error := ${color_red}
 %debug_var = $(call %debug,${1}="${${1}}")
 
 ####
-
-override COLOR := $(call %as_truthy,${COLOR})
-override DEBUG := $(call %as_truthy,${DEBUG})
-override STATIC := $(call %as_truthy,${STATIC})
-override VERBOSE := $(call %as_truthy,${VERBOSE})
-
-override MAKEFLAGS_debug := $(call %as_truthy,$(or $(call %is_truthy,${MAKEFLAGS_debug}),$(call %is_truthy,${MAKEFILE_debug})))
 
 $(call %debug_var,OSID)
 $(call %debug_var,SHELL)
@@ -777,6 +788,7 @@ LDFLAGS += ${LDFLAGS_TARGET}
 LDFLAGS += ${LDFLAGS_DEBUG_${DEBUG}}
 LDFLAGS += ${LDFLAGS_STATIC_${STATIC}}
 LDFLAGS += ${LDFLAGS_CL1600+_${is_CL1600+}}
+LDFLAGS += ${LDFLAGS_CL1600+_${is_CL1600+}_ARCH_${ARCH_ID}}
 LDFLAGS += ${LDFLAGS_VC6_${is_VC6}}
 LDFLAGS += ${LDFLAGS_${CC_ID}}
 LDFLAGS += ${LDFLAGS_${CC_ID}_${OSID}}
@@ -818,7 +830,8 @@ test_output := $(shell ${test_lib_setting_win} && ${ECHO} ${HASH}include ^<stdio
 else
 test_output := $(shell LIB='${LIB}' && ${ECHO} '${HASH}include <stdio.h>' > $(call %shell_quote,${test_file_stem}.c) && ${ECHO} 'int main(void){printf("${test_file_stem}");return 0;}' >> $(call %shell_quote,${test_file_stem}.c) && ${CC} $(filter-out ${CFLAGS_VERBOSE_true},${CFLAGS}) $(call %shell_quote,${test_file_stem}.c) ${test_file_cc_string} 2>&1 && ${ECHO} ${test_success_text}; ${RM} -f $(call %shell_quote,${test_file_stem}${EXEEXT}) $(call %shell_quote,${test_file_stem}).*)
 endif
-ARCH_available := $(call %is_truthy,$(findstring ${test_success_text},${test_output}))
+32bitOnly_CCs := bcc32 embcc32
+ARCH_available := $(call %is_truthy,$(and $(findstring ${test_success_text},${test_output}),$(or $(filter-out ${32bitOnly_CCs},${CC_ID}),$(filter-out 64,${ARCH_ID}))))
 $(call %debug_var,.SHELLSTATUS)
 $(call %debug_var,test_output)
 $(call %debug_var,ARCH_available)
@@ -849,7 +862,7 @@ $(call %debug_var,make_run_ARGS)
 
 ####
 
-BUILD_DIR := ${BASEPATH}${DOLLAR}build## `${HASH}build` causes issues with OpenWatcom-v2.0 [2020-09-01]; note: 'target' is a common alternative
+BUILD_DIR := ${BASEPATH}$(or ${BUILD_PATH},${HASH}build)## note: `${HASH}build` causes issues with OpenWatcom-v2.0 [2020-09-01], but `${DOLLAR}build` causes variable expansion issues for VSCode debugging; note: 'target' is a common alternative
 SRC_DIR := ${BASEPATH}$(or ${SRC_PATH},src)
 
 CONFIG := $(if $(call %is_truthy,${DEBUG}),debug,release)

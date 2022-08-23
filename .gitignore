@@ -1,30 +1,28 @@
-# NOTE: GLOBSTAR syntax [see `git help gitignore`]
-# ref: [.gitignore] http://git-scm.com/docs/gitignore @@ http://archive.is/Rk6rO
-# ref: for reference, see https://www.gitignore.io/api/visualstudio,visualstudiocode,c++
+# v2022-08-23+msvs [rivy]
 
-## Build files
+# NOTE: Git GLOBSTAR syntax [see `git help gitignore`]
+# * ref: [.gitignore] http://git-scm.com/docs/gitignore @@ http://archive.is/Rk6rO
+# * ref: [Generate gitignore's](https://gitignore.io) ; eg, <https://gitignore.io/api/node>
 
-/[._#$]build/
+# ignore intermediate/undistributed build artifacts
+build
+[._@#$]build
+target
 
-## VSCode/VisualStudioCode
+# ignore coverage data
+coverage
+[._@#$]coverage
+.nyc_output
 
-/.vscode/*
-/!.vscode/settings.json
-/!.vscode/tasks.json
-/!.vscode/launch.json
-/!.vscode/extensions.json
+# ignore JS import/package-related files
+node_modules
+package-lock.json
+yarn.lock
+
+# ignore VSCode/VisualStudio-related files
+## * code workspace files ~ ref: <https://stackoverflow.com/questions/44629890/what-is-a-workspace-in-visual-studio-code/69393961#69393961> @@ <https://archive.is/o5DB0>
 /*.code-workspace
-
-## * VSCode local history
-
-/.history
-
-##  Visual Studio
-
 ## * VS2015/2017 cache/options directory
-
 .vs/
-
 ## * VS project user-specific property files
-
 *.vcxproj.user

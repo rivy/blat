@@ -29,6 +29,9 @@
 #if !defined(BASE_SMTP_ONLY)
 #define BASE_SMTP_ONLY          FALSE
 #endif
+#if !defined(SUPPORT_YENC)
+#define SUPPORT_YENC            TRUE
+#endif
 
 #if BLAT_LITE || BASE_SMTP_ONLY
     #define INCLUDE_NNTP        FALSE   // Must be FALSE for the compiler to work and deliver
@@ -47,7 +50,6 @@
 
     #define INCLUDE_NNTP        TRUE    // Change to FALSE if you do not want NNTP support
     #define INCLUDE_POP3        TRUE    // Change to FALSE if you do not want POP3 support
-    #define SUPPORT_YENC        TRUE    // Change to FALSE if you do not want YENC support
     #define SUPPORT_MULTIPART   TRUE
     #define SUPPORT_SIGNATURES  TRUE
     #define SUPPORT_TAGLINES    TRUE

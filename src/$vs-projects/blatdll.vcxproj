@@ -19,69 +19,69 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\full\source\attach.cpp" />
-    <ClCompile Include="..\..\full\source\base64.cpp" />
-    <ClCompile Include="..\..\full\source\blat.cpp" />
-    <ClCompile Include="..\..\full\source\blatcgi.cpp" />
-    <ClCompile Include="..\..\full\source\bldhdrs.cpp" />
-    <ClCompile Include="..\..\full\source\filetype.cpp" />
-    <ClCompile Include="..\..\full\source\gensock.cpp" />
-    <ClCompile Include="..\..\full\source\gssfuncs.cpp" />
-    <ClCompile Include="..\..\full\source\makeargv.cpp" />
-    <ClCompile Include="..\..\full\source\md5.c" />
-    <ClCompile Include="..\..\full\source\mime.cpp" />
-    <ClCompile Include="..\..\full\source\msgbody.cpp" />
-    <ClCompile Include="..\..\full\source\options.cpp" />
-    <ClCompile Include="..\..\full\source\parsing.cpp" />
-    <ClCompile Include="..\..\full\source\punycode.cpp" />
-    <ClCompile Include="..\..\full\source\reg.cpp" />
-    <ClCompile Include="..\..\full\source\sendnntp.cpp" />
-    <ClCompile Include="..\..\full\source\sendsmtp.cpp" />
-    <ClCompile Include="..\..\full\source\server.cpp" />
-    <ClCompile Include="..\..\full\source\unicode.cpp" />
-    <ClCompile Include="..\..\full\source\uuencode.cpp" />
-    <ClCompile Include="..\..\full\source\yenc.cpp" />
+    <ClCompile Include="..\blat\attach.cpp" />
+    <ClCompile Include="..\blat\base64.cpp" />
+    <ClCompile Include="..\blat\blat.cpp" />
+    <ClCompile Include="..\blat\blatcgi.cpp" />
+    <ClCompile Include="..\blat\bldhdrs.cpp" />
+    <ClCompile Include="..\blat\filetype.cpp" />
+    <ClCompile Include="..\blat\gensock.cpp" />
+    <ClCompile Include="..\blat\gssfuncs.cpp" />
+    <ClCompile Include="..\blat\makeargv.cpp" />
+    <ClCompile Include="..\blat\md5.c" />
+    <ClCompile Include="..\blat\mime.cpp" />
+    <ClCompile Include="..\blat\msgbody.cpp" />
+    <ClCompile Include="..\blat\options.cpp" />
+    <ClCompile Include="..\blat\parsing.cpp" />
+    <ClCompile Include="..\blat\punycode.cpp" />
+    <ClCompile Include="..\blat\reg.cpp" />
+    <ClCompile Include="..\blat\sendnntp.cpp" />
+    <ClCompile Include="..\blat\sendsmtp.cpp" />
+    <ClCompile Include="..\blat\server.cpp" />
+    <ClCompile Include="..\blat\unicode.cpp" />
+    <ClCompile Include="..\blat\uuencode.cpp" />
+    <ClCompile Include="..\blat\yenc.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\full\source\attach.hpp" />
-    <ClInclude Include="..\..\full\source\base64.hpp" />
-    <ClInclude Include="..\..\full\source\blat.h" />
-    <ClInclude Include="..\..\full\source\blatcgi.hpp" />
-    <ClInclude Include="..\..\full\source\blatdll.h" />
-    <ClInclude Include="..\..\full\source\blatext.hpp" />
-    <ClInclude Include="..\..\full\source\bldhdrs.hpp" />
-    <ClInclude Include="..\..\full\source\buf.h" />
-    <ClInclude Include="..\..\full\source\common_data.h" />
-    <ClInclude Include="..\..\full\source\connections.h" />
-    <ClInclude Include="..\..\full\source\declarations.h" />
-    <ClInclude Include="..\..\full\source\filetype.hpp" />
-    <ClInclude Include="..\..\full\source\gensock.h" />
-    <ClInclude Include="..\..\full\source\gssapi_generic.h" />
-    <ClInclude Include="..\..\full\source\gssfuncs.h" />
-    <ClInclude Include="..\..\full\source\macros.h" />
-    <ClInclude Include="..\..\full\source\makeargv.hpp" />
-    <ClInclude Include="..\..\full\source\md5.h" />
-    <ClInclude Include="..\..\full\source\mime.hpp" />
-    <ClInclude Include="..\..\full\source\msgbody.hpp" />
-    <ClInclude Include="..\..\full\source\options.hpp" />
-    <ClInclude Include="..\..\full\source\parsing.hpp" />
-    <ClInclude Include="..\..\full\source\punycode.h" />
-    <ClInclude Include="..\..\full\source\reg.hpp" />
-    <ClInclude Include="..\..\full\source\resource.h" />
-    <ClInclude Include="..\..\full\source\sendnntp.hpp" />
-    <ClInclude Include="..\..\full\source\sendsmtp.hpp" />
-    <ClInclude Include="..\..\full\source\server.hpp" />
-    <ClInclude Include="..\..\full\source\unicode.hpp" />
-    <ClInclude Include="..\..\full\source\uuencode.hpp" />
-    <ClInclude Include="..\..\full\source\win-mac.h" />
-    <ClInclude Include="..\..\full\source\winfile.h" />
-    <ClInclude Include="..\..\full\source\yenc.hpp" />
+    <ClInclude Include="..\blat\attach.hpp" />
+    <ClInclude Include="..\blat\base64.hpp" />
+    <ClInclude Include="..\blat\blat.h" />
+    <ClInclude Include="..\blat\blatcgi.hpp" />
+    <ClInclude Include="..\blat\blatdll.h" />
+    <ClInclude Include="..\blat\blatext.hpp" />
+    <ClInclude Include="..\blat\bldhdrs.hpp" />
+    <ClInclude Include="..\blat\buf.h" />
+    <ClInclude Include="..\blat\common_data.h" />
+    <ClInclude Include="..\blat\connections.h" />
+    <ClInclude Include="..\blat\declarations.h" />
+    <ClInclude Include="..\blat\filetype.hpp" />
+    <ClInclude Include="..\blat\gensock.h" />
+    <ClInclude Include="..\blat\gssapi_generic.h" />
+    <ClInclude Include="..\blat\gssfuncs.h" />
+    <ClInclude Include="..\blat\macros.h" />
+    <ClInclude Include="..\blat\makeargv.hpp" />
+    <ClInclude Include="..\blat\md5.h" />
+    <ClInclude Include="..\blat\mime.hpp" />
+    <ClInclude Include="..\blat\msgbody.hpp" />
+    <ClInclude Include="..\blat\options.hpp" />
+    <ClInclude Include="..\blat\parsing.hpp" />
+    <ClInclude Include="..\blat\punycode.h" />
+    <ClInclude Include="..\blat\reg.hpp" />
+    <ClInclude Include="..\blat\resource.h" />
+    <ClInclude Include="..\blat\sendnntp.hpp" />
+    <ClInclude Include="..\blat\sendsmtp.hpp" />
+    <ClInclude Include="..\blat\server.hpp" />
+    <ClInclude Include="..\blat\unicode.hpp" />
+    <ClInclude Include="..\blat\uuencode.hpp" />
+    <ClInclude Include="..\blat\win-mac.h" />
+    <ClInclude Include="..\blat\winfile.h" />
+    <ClInclude Include="..\blat\yenc.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\full\source\blatdll\blat.rc" />
+    <ResourceCompile Include="..\blatdll\blat.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\full\source\blatdll\blat.def" />
+    <None Include="..\blatdll\blat.def" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5AFA0BF5-E0D2-479D-9770-1482D4F75F02}</ProjectGuid>
@@ -179,7 +179,7 @@
       <AdditionalDependencies>wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateMapFile>true</GenerateMapFile>
       <StackReserveSize>102400</StackReserveSize>
-      <ModuleDefinitionFile>..\..\full\source\blat.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>..\blat\blat.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -213,7 +213,7 @@
       <AdditionalDependencies>wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateMapFile>true</GenerateMapFile>
       <StackReserveSize>102400</StackReserveSize>
-      <ModuleDefinitionFile>..\..\full\source\blatdll\blat.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>..\blatdll\blat.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -243,7 +243,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateMapFile>true</GenerateMapFile>
       <StackReserveSize>102400</StackReserveSize>
-      <ModuleDefinitionFile>..\..\full\source\blat.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>..\blat\blat.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -275,7 +275,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateMapFile>true</GenerateMapFile>
       <StackReserveSize>102400</StackReserveSize>
-      <ModuleDefinitionFile>..\..\full\source\blat.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>..\blat\blat.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

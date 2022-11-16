@@ -12,180 +12,180 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\full\source\attach.cpp">
+    <ClCompile Include="..\blat\attach.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\base64.cpp">
+    <ClCompile Include="..\blat\base64.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\blat.cpp">
+    <ClCompile Include="..\blat\blat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\blatcgi.cpp">
+    <ClCompile Include="..\blat\blatcgi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\bldhdrs.cpp">
+    <ClCompile Include="..\blat\bldhdrs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\filetype.cpp">
+    <ClCompile Include="..\blat\filetype.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\gensock.cpp">
+    <ClCompile Include="..\blat\gensock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\gssfuncs.cpp">
+    <ClCompile Include="..\blat\gssfuncs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\makeargv.cpp">
+    <ClCompile Include="..\blat\makeargv.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\md5.c">
+    <ClCompile Include="..\blat\md5.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\mime.cpp">
+    <ClCompile Include="..\blat\mime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\msgbody.cpp">
+    <ClCompile Include="..\blat\msgbody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\options.cpp">
+    <ClCompile Include="..\blat\options.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\parsing.cpp">
+    <ClCompile Include="..\blat\parsing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\punycode.cpp">
+    <ClCompile Include="..\blat\punycode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\reg.cpp">
+    <ClCompile Include="..\blat\reg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\sendnntp.cpp">
+    <ClCompile Include="..\blat\sendnntp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\sendsmtp.cpp">
+    <ClCompile Include="..\blat\sendsmtp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\server.cpp">
+    <ClCompile Include="..\blat\server.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\unicode.cpp">
+    <ClCompile Include="..\blat\unicode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\uuencode.cpp">
+    <ClCompile Include="..\blat\uuencode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\full\source\yenc.cpp">
+    <ClCompile Include="..\blat\yenc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\full\source\attach.hpp">
+    <ClInclude Include="..\blat\attach.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\base64.hpp">
+    <ClInclude Include="..\blat\base64.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\blat.h">
+    <ClInclude Include="..\blat\blat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\blatcgi.hpp">
+    <ClInclude Include="..\blat\blatcgi.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\blatdll.h">
+    <ClInclude Include="..\blat\blatdll.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\blatext.hpp">
+    <ClInclude Include="..\blat\blatext.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\bldhdrs.hpp">
+    <ClInclude Include="..\blat\bldhdrs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\buf.h">
+    <ClInclude Include="..\blat\buf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\common_data.h">
+    <ClInclude Include="..\blat\common_data.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\connections.h">
+    <ClInclude Include="..\blat\connections.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\declarations.h">
+    <ClInclude Include="..\blat\declarations.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\gensock.h">
+    <ClInclude Include="..\blat\gensock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\filetype.hpp">
+    <ClInclude Include="..\blat\filetype.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\gssapi_generic.h">
+    <ClInclude Include="..\blat\gssapi_generic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\gssfuncs.h">
+    <ClInclude Include="..\blat\gssfuncs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\macros.h">
+    <ClInclude Include="..\blat\macros.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\makeargv.hpp">
+    <ClInclude Include="..\blat\makeargv.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\md5.h">
+    <ClInclude Include="..\blat\md5.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\mime.hpp">
+    <ClInclude Include="..\blat\mime.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\msgbody.hpp">
+    <ClInclude Include="..\blat\msgbody.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\options.hpp">
+    <ClInclude Include="..\blat\options.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\parsing.hpp">
+    <ClInclude Include="..\blat\parsing.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\punycode.h">
+    <ClInclude Include="..\blat\punycode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\resource.h">
+    <ClInclude Include="..\blat\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\sendnntp.hpp">
+    <ClInclude Include="..\blat\sendnntp.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\sendsmtp.hpp">
+    <ClInclude Include="..\blat\sendsmtp.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\server.hpp">
+    <ClInclude Include="..\blat\server.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\unicode.hpp">
+    <ClInclude Include="..\blat\unicode.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\uuencode.hpp">
+    <ClInclude Include="..\blat\uuencode.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\winfile.h">
+    <ClInclude Include="..\blat\winfile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\win-mac.h">
+    <ClInclude Include="..\blat\win-mac.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\yenc.hpp">
+    <ClInclude Include="..\blat\yenc.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\full\source\reg.hpp">
+    <ClInclude Include="..\blat\reg.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\full\source\blatdll\blat.rc">
+    <ResourceCompile Include="..\blatdll\blat.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\full\source\blatdll\blat.def" />
+    <None Include="..\blatdll\blat.def" />
   </ItemGroup>
 </Project>

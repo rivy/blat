@@ -1813,6 +1813,7 @@ int send_email( COMMON_DATA & CommonData, size_t msgBodySize,
         int      thisPart, partsCount;
         DWORD    startOffset;
         LPTSTR   attachDescription;
+        LPTSTR   attachContentType;
 
         if ( totalParts > 1 )
             printMsg( CommonData, __T("Sending %lu parts for this message.\n"), totalParts );
@@ -1820,7 +1821,7 @@ int send_email( COMMON_DATA & CommonData, size_t msgBodySize,
         prevAttachType = -1;
         partsCount = 0;
         for ( attachNbr = 0; attachNbr < nbrOfAttachments; attachNbr++ ) {
-            getAttachmentInfo( CommonData, attachNbr, attachName, attachSize, attachType, attachDescription );
+            getAttachmentInfo( CommonData, attachNbr, attachName, attachSize, attachType, attachDescription, attachContentType );
             partsCount = (int)(attachSize / msgSize);
             if ( attachSize % msgSize )
                 partsCount++;
@@ -1880,7 +1881,7 @@ int send_email( COMMON_DATA & CommonData, size_t msgBodySize,
                     break;
             }
 
-            getAttachmentInfo( CommonData, attachNbr, attachName, attachSize, attachType, attachDescription );
+            getAttachmentInfo( CommonData, attachNbr, attachName, attachSize, attachType, attachDescription, attachContentType );
             partsCount = (int)(attachSize / msgSize);
             if ( attachSize % msgSize )
                 partsCount++;

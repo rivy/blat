@@ -13,7 +13,7 @@
 #include "blat.h"
 #include "common_data.h"
 
-extern void getAttachmentInfo( COMMON_DATA & CommonData, int attachNbr, LPTSTR & attachName, DWORD & attachSize, int & attachType, LPTSTR & attachDescription );
+extern void getAttachmentInfo( COMMON_DATA & CommonData, int attachNbr, LPTSTR & attachName, DWORD & attachSize, int & attachType, LPTSTR & attachDescription, LPTSTR & attachContentType );
 extern void releaseAttachmentInfo ( COMMON_DATA & CommonData );
 extern int  collectAttachmentInfo ( COMMON_DATA & CommonData, DWORD & totalsize, size_t msgBodySize );
 extern void getMaxMsgSize ( COMMON_DATA & CommonData, int buildSMTP, DWORD &length );

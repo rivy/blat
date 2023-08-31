@@ -14,6 +14,6 @@
 
 
 extern LPTSTR getShortFileName (LPTSTR fileName);
-extern void   getContentType (COMMON_DATA & CommonData, Buf & sDestBuffer, LPTSTR foundType, LPTSTR defaultType, LPTSTR sFileName);
+extern void   getContentType (COMMON_DATA & CommonData, Buf & sDestBuffer, LPTSTR foundType, LPTSTR defaultType, LPTSTR sFileName, LPTSTR forceOverride);
 
 #endif  // #ifndef __FILETYPE_HPP__

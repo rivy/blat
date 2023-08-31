@@ -265,7 +265,7 @@ int add_message_body ( COMMON_DATA & CommonData,
                             messageBuffer.Add( __T("Content-Transfer-Encoding: quoted-printable\r\n") );
 #if SMART_CONTENT_TYPE
                         if ( !CommonData.ConsoleDone && !_tcscmp( CommonData.textmode.Get(), __T("plain") ) )
-                            getContentType( CommonData, tmpstr, foundType, foundType, getShortFileName(CommonData.bodyFilename.Get()) );
+                            getContentType( CommonData, tmpstr, foundType, foundType, getShortFileName(CommonData.bodyFilename.Get()), NULL );
 
                         messageBuffer.Add( __T("Content-Type: ") );
                         messageBuffer.Add( foundType );
@@ -343,7 +343,7 @@ int add_message_body ( COMMON_DATA & CommonData,
                                 }
   #if SMART_CONTENT_TYPE
                                 if ( !CommonData.ConsoleDone && !_tcscmp( CommonData.textmode.Get(), __T("plain") ) )
-                                    getContentType( CommonData, tmpstr, foundType, foundType, getShortFileName(CommonData.bodyFilename.Get()) );
+                                    getContentType( CommonData, tmpstr, foundType, foundType, getShortFileName(CommonData.bodyFilename.Get()), NULL );
 
                                 messageBuffer.Add( __T("Content-Type: ") );
                                 messageBuffer.Add( foundType );

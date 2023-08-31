@@ -23,6 +23,7 @@ typedef struct NODES {
     int     fileType;
     DWORD   fileSize;
     LPTSTR  description;
+    LPTSTR  contentType;
 } _NODES;
 
 typedef struct _COMMON_DATA

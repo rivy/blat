@@ -5,6 +5,28 @@
 [ - Bug fixed (we hope)      ]
  ============================
 
+3.2.24
+[+] Added a feature to allow users to specify an attachment's content
+    type.  Building upon the edits I make for version 3.2.18, I check for
+    the content type to be marked with a semicolon (;) that separates a
+    description and the content type.
+
+    Example with description only:
+           -attach file.p7s<eau>
+
+    Example with description and content type:
+           -attach file.p7s<eau;application/octet-stream>
+
+    Example with content type only:
+           -attach file.p7s<;application/octet-stream>
+
+    In these three examples, "eau" describes the file being attached and will
+    be the Content-Description:.  The "application/octet-stream" will be the
+    Content-Type:.  Please note the forward slash must be present, and there
+    must not be any spaces, per the relevant RFC standards.  If the content
+    type specified is not supported by RFCs, the email may be rejected without
+    ever reaching the recipient.
+-------------------------------------------------------------------------------
 3.2.23
 [-] When parsing attachment names, the parser would stop after the first
     closing quotation mark (") if found.  Any filenames that are present after

@@ -207,6 +207,7 @@ int send_news( COMMON_DATA & CommonData, size_t msgBodySize,
     BLDHDRS bldHdrs;
     Buf     tmpBuf;
     LPTSTR  attachDescription;
+    LPTSTR  attachContentType;
 
 
     if ( !CommonData.NNTPHost.Get()[0] || !CommonData.groups.Length() ) {
@@ -334,7 +335,7 @@ int send_news( COMMON_DATA & CommonData, size_t msgBodySize,
             if ( retcode )
                 break;
 
-            getAttachmentInfo( CommonData, attachNbr, attachName, attachSize, attachType, attachDescription );
+            getAttachmentInfo( CommonData, attachNbr, attachName, attachSize, attachType, attachDescription, attachContentType );
             partsCount = (int)(attachSize / msgSize);
             if ( attachSize % msgSize )
                 partsCount++;

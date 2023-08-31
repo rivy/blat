@@ -1270,7 +1270,7 @@ void build_headers( COMMON_DATA & CommonData, BLDHDRS & bldHdrs )
                 }
 #if SMART_CONTENT_TYPE
                 if ( !CommonData.ConsoleDone && !_tcscmp( CommonData.textmode.Get(), __T("plain")) )
-                    getContentType( CommonData, tmpBuf, foundType, foundType, getShortFileName( CommonData.bodyFilename.Get() ) );
+                    getContentType( CommonData, tmpBuf, foundType, foundType, getShortFileName( CommonData.bodyFilename.Get() ), NULL );
 
                 contentType.Add( __T("Content-Type: ") );
                 contentType.Add( foundType );
@@ -1311,7 +1311,7 @@ void build_headers( COMMON_DATA & CommonData, BLDHDRS & bldHdrs )
                     contentType.Add( __T(" message body\r\n") );
   #if SMART_CONTENT_TYPE
                     if ( !CommonData.ConsoleDone && !_tcscmp( CommonData.textmode.Get(), __T("plain")) )
-                        getContentType( CommonData, NULL, foundType, foundType, getShortFileName( CommonData.bodyFilename.Get() ) );
+                        getContentType( CommonData, NULL, foundType, foundType, getShortFileName( CommonData.bodyFilename.Get() ), NULL );
 
                     contentType.Add( __T("Content-Type: ") );
                     contentType.Add( foundType );
@@ -1390,7 +1390,7 @@ void build_headers( COMMON_DATA & CommonData, BLDHDRS & bldHdrs )
                     contentType.Add( __T(" message body\r\n") );
   #if SMART_CONTENT_TYPE
                     if ( !CommonData.ConsoleDone && !_tcscmp( CommonData.textmode.Get(), __T("plain")) )
-                        getContentType( CommonData, NULL, foundType, foundType, getShortFileName( CommonData.bodyFilename.Get() ) );
+                        getContentType( CommonData, NULL, foundType, foundType, getShortFileName( CommonData.bodyFilename.Get() ), NULL );
 
                     contentType.Add( __T("Content-Type: ") );
                     contentType.Add( foundType );
@@ -1451,7 +1451,7 @@ void build_headers( COMMON_DATA & CommonData, BLDHDRS & bldHdrs )
 
 #if SMART_CONTENT_TYPE
                         if ( !CommonData.ConsoleDone && !_tcscmp( CommonData.textmode.Get(), __T("plain")) )
-                            getContentType( CommonData, tmpBuf, foundType, foundType, getShortFileName( CommonData.bodyFilename.Get() ) );
+                            getContentType( CommonData, tmpBuf, foundType, foundType, getShortFileName( CommonData.bodyFilename.Get() ), NULL );
 
                         contentType.Add( __T("Content-Type: ") );
                         contentType.Add( foundType );

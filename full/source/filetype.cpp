@@ -47,7 +47,7 @@ LPTSTR getShortFileName (LPTSTR fileName)
     return sFileName;
 }
 
-void getContentType (COMMON_DATA & CommonData, Buf & sDestBuffer, LPTSTR foundType, LPTSTR defaultType, LPTSTR sFileName)
+void getContentType (COMMON_DATA & CommonData, Buf & sDestBuffer, LPTSTR foundType, LPTSTR defaultType, LPTSTR sFileName, LPTSTR forceOverride)
 {
     // Toby Korn (tkorn@snl.com)
     // SetFileType examines the file name sFileName for known file extensions and sets
@@ -67,36 +67,41 @@ void getContentType (COMMON_DATA & CommonData, Buf & sDestBuffer, LPTSTR foundTy
     unsigned      ix;
     Buf           shortNameBuf;
 
-    lResult = ~ERROR_SUCCESS;
 
-    // Find the last '.' in the filename
-    tmpStr = _tcsrchr( sFileName, __T('.'));
-    if ( tmpStr ) {
-        // Found the extension type.
-        _tcscpy(sExt, tmpStr);
-        lResult = RegOpenKeyEx(HKEY_CLASSES_ROOT, (LPCTSTR) sExt, 0, KEY_READ, &key);
-        if ( lResult == ERROR_SUCCESS ) {
-            lTypeSize = CONTENT_TYPE_LENGTH;
-            lResult = RegQueryValueEx(key, __T("Content Type"), NULL, &lStringType, (BYTE *)sType,
-                                      &lTypeSize);
-            RegCloseKey (key);
-            tmpStr = sType;
-        }
-    }
-    // keep a couple of hard coded ones in case the registry is missing something.
-    if ( lResult != ERROR_SUCCESS ) {
-        for ( ix = 0; ; ix++ ) {
-            if ( !defaultContentTypes[ix].extension ) {
-                if ( defaultType && *defaultType )
-                    tmpStr = defaultType;
-                else
-                    tmpStr = __T("application/octet-stream");
+    if ( forceOverride ) {
+        tmpStr = forceOverride;
+    } else {
+        lResult = ~ERROR_SUCCESS;
 
-                break;
+        // Find the last '.' in the filename
+        tmpStr = _tcsrchr( sFileName, __T('.'));
+        if ( tmpStr ) {
+            // Found the extension type.
+            _tcscpy(sExt, tmpStr);
+            lResult = RegOpenKeyEx(HKEY_CLASSES_ROOT, (LPCTSTR) sExt, 0, KEY_READ, &key);
+            if ( lResult == ERROR_SUCCESS ) {
+                lTypeSize = CONTENT_TYPE_LENGTH;
+                lResult = RegQueryValueEx(key, __T("Content Type"), NULL, &lStringType, (BYTE *)sType,
+                                          &lTypeSize);
+                RegCloseKey (key);
+                tmpStr = sType;
             }
-            if ( _tcsicmp(sExt, defaultContentTypes[ix].extension) == 0 ) {
-                tmpStr = defaultContentTypes[ix].contentType;
-                break;
+        }
+        // keep a couple of hard coded ones in case the registry is missing something.
+        if ( lResult != ERROR_SUCCESS ) {
+            for ( ix = 0; ; ix++ ) {
+                if ( !defaultContentTypes[ix].extension ) {
+                    if ( defaultType && *defaultType )
+                        tmpStr = defaultType;
+                    else
+                        tmpStr = __T("application/octet-stream");
+
+                    break;
+                }
+                if ( _tcsicmp(sExt, defaultContentTypes[ix].extension) == 0 ) {
+                    tmpStr = defaultContentTypes[ix].contentType;
+                    break;
+                }
             }
         }
     }

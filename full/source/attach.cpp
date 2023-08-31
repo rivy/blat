@@ -30,6 +30,8 @@ static void releaseNode ( NODES * &nextNode )
         free( nextNode->attachmentName );
         if ( nextNode->description )
             free( nextNode->description );
+        if ( nextNode->contentType )
+            free( nextNode->contentType );
 
         free( nextNode );
         nextNode = NULL;
@@ -37,7 +39,7 @@ static void releaseNode ( NODES * &nextNode )
 }
 
 
-void getAttachmentInfo( COMMON_DATA & CommonData, int attachNbr, LPTSTR & attachName, DWORD & attachSize, int & attachType, LPTSTR & attachDescription )
+void getAttachmentInfo( COMMON_DATA & CommonData, int attachNbr, LPTSTR & attachName, DWORD & attachSize, int & attachType, LPTSTR & attachDescription, LPTSTR & attachContentType )
 {
     FUNCTION_ENTRY();
     NODES * tmpNode;
@@ -50,6 +52,7 @@ void getAttachmentInfo( COMMON_DATA & CommonData, int attachNbr, LPTSTR & attach
     attachSize        = tmpNode->fileSize;
     attachType        = tmpNode->fileType;
     attachDescription = tmpNode->description;
+    attachContentType = tmpNode->contentType;
     FUNCTION_EXIT();
 }
 
@@ -91,9 +94,11 @@ int collectAttachmentInfo ( COMMON_DATA & CommonData, DWORD & totalsize, size_t 
     for ( i = 0; (i < CommonData.attach) && !errorFound; i++ ) {
 
         Buf description;
+        Buf contentType;
         Buf fileToSearchFor;
 
         description.Clear();
+        contentType.Clear();
 
         // Get the path for opening file
         path = CommonData.attachfile[i];
@@ -101,13 +106,34 @@ int collectAttachmentInfo ( COMMON_DATA & CommonData, DWORD & totalsize, size_t 
         pathptr = _tcsrchr(path.Get(), __T('<'));
         if ( pathptr ) {
             *pathptr = __T('\0');
-            description.Add( &pathptr[1] );
+            path.SetLength();
+            pathptr++;
+
+            description.Add( pathptr );
             pathptr = _tcsrchr(description.Get(), __T('>'));
             if ( pathptr )
                 *pathptr = __T('\0');
 
-            path.SetLength();
+            pathptr = _tcsrchr(description.Get(), __T(';'));
+            if ( pathptr ) {
+                *pathptr = __T('\0');
+                pathptr++;
+                if ( *pathptr != __T('\0' ) ) {
+                    contentType.Add( pathptr );
+                    pathptr = _tcsrchr(contentType.Get(), __T('/'));
+                    if ( pathptr ) {
+                        pathptr = _tcsrchr(contentType.Get(), __T(' '));
+                        if ( pathptr )
+                            contentType.Clear();
+                    } else
+                        contentType.Clear();
+                }
+            }
+
             description.SetLength();
+            pathptr = _tcsrchr(description.Get(), __T(' '));
+            if ( pathptr )
+                description.Clear();
         }
 
         fileToSearchFor = path;
@@ -159,6 +185,13 @@ int collectAttachmentInfo ( COMMON_DATA & CommonData, DWORD & totalsize, size_t 
                                 tmpNode->attachmentName = (LPTSTR) malloc( x );
                                 memcpy( tmpNode->attachmentName, attachedfile.Get(), x );
 
+                                if ( contentType.Length() ) {
+                                    x = (contentType.Length() + 1) * sizeof(_TCHAR);
+                                    tmpNode->contentType = (LPTSTR) malloc( x );
+                                    memcpy( tmpNode->contentType, contentType.Get(), x );
+                                } else
+                                    tmpNode->contentType = NULL;
+
                                 if ( description.Length() ) {
                                     x = (description.Length() + 1) * sizeof(_TCHAR);
                                     tmpNode->description = (LPTSTR) malloc( x );
@@ -185,6 +218,7 @@ int collectAttachmentInfo ( COMMON_DATA & CommonData, DWORD & totalsize, size_t 
         }
         FindClose( ihandle );
         fileToSearchFor.Free();
+        contentType.Free();
         description.Free();
         path.Free();
     }
@@ -275,6 +309,7 @@ int add_one_attachment ( COMMON_DATA & CommonData, Buf &messageBuffer, int build
     Buf           textFileBuffer;
     _TCHAR        localCharset[40];
     LPTSTR        attachDescription;
+    LPTSTR        attachContentType;
 
 #if BLAT_LITE
     (void)buildSMTP;    // remove compiler warnings.
@@ -295,7 +330,9 @@ int add_one_attachment ( COMMON_DATA & CommonData, Buf &messageBuffer, int build
 
     textFileBuffer.Free();
     tmpstr2.Clear();
-    getAttachmentInfo( CommonData, attachNbr, attachName, fullFileSize, attachType, attachDescription );
+    attachDescription = NULL;
+    attachContentType = NULL;
+    getAttachmentInfo( CommonData, attachNbr, attachName, fullFileSize, attachType, attachDescription, attachContentType );
     shortNameBuf.Clear();
     shortname = getShortFileName(attachName);
     shortNameBuf = shortname;
@@ -332,9 +369,9 @@ int add_one_attachment ( COMMON_DATA & CommonData, Buf &messageBuffer, int build
     // 9/18/1998 by Toby Korn
     // Replaced default Content-Type with a lookup based on file extension
 #if BLAT_LITE
-    getContentType (CommonData, tmpstr1, NULL, NULL                            , shortname);
+    getContentType (CommonData, tmpstr1, NULL, NULL                            , shortname, attachContentType);
 #else
-    getContentType (CommonData, tmpstr1, NULL, CommonData.userContentType.Get(), shortname);
+    getContentType (CommonData, tmpstr1, NULL, CommonData.userContentType.Get(), shortname, attachContentType);
 #endif
     if ( _memicmp( tmpstr1.Get(), __T("Content-Type: message/rfc822"), 28*sizeof(_TCHAR) ) == 0 )
         attachType |= 0x80;

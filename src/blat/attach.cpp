@@ -2,6 +2,11 @@
     attach.cpp
 */
 
+#if (defined __BORLANDC__)
+#include <mem.h>
+#define _memicmp _fmemicmp
+#endif
+
 #include "declarations.h"
 
 #ifndef WIN32_LEAN_AND_MEAN

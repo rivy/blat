@@ -3594,13 +3594,19 @@ _BLATOPTIONS blatOptionsList[] = {
 #define UNICODE_TEXT    __T("")
 #endif
 
+#ifndef _GIT_DESC
+#define GIT_TEXT       __T("")
+#else
+#define GIT_TEXT       __T(" ; ") _GIT_DESC
+#endif
+
 void printTitleLine( COMMON_DATA & CommonData, int quiet )
 {
     _TCHAR tmpstr[1024];
 
 
     if ( !CommonData.titleLinePrinted ) {
-        _stprintf( tmpstr, __T("Blat v%s%s (build : %s %s)\n") BIT_SIZE __T("-bit Windows, ") FEATURES_TEXT UNICODE_TEXT __T("\n\n"), blatVersion, blatVersionSuf, blatBuildDate, blatBuildTime );
+        _stprintf( tmpstr, __T("Blat v%s%s (build : %s %s") GIT_TEXT __T(")\n") BIT_SIZE __T("-bit Windows, ") FEATURES_TEXT UNICODE_TEXT __T("\n\n"), blatVersion, blatVersionSuf, blatBuildDate, blatBuildTime );
         if ( !quiet )
             pMyPrintDLL( tmpstr );
 
